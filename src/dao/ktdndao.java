@@ -7,6 +7,7 @@ package dao;
 import bean.sinhvienbean;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -45,7 +46,7 @@ public class ktdndao {
         }
     }
     
-    public sinhvienbean timkiem (String keyword) {
+    public ArrayList<sinhvienbean> timkiem (String keyword) {
         try {
             // b1: Ket noi csdl
             KetNoi kn=new KetNoi();
@@ -56,7 +57,7 @@ public class ktdndao {
             PreparedStatement cmd = kn.cn.prepareStatement(sql);
             cmd.setString(1, keyword);
             ResultSet rs = cmd.executeQuery();
-            sinhvienbean sv = null;
+            ArrayList<sinhvienbean> ds=new ArrayList<sinhvienbean>();
             
             if(rs.next()) {
                 long masinhvien=rs.getLong("masinhvien");
@@ -65,30 +66,29 @@ public class ktdndao {
                 double dtb=rs.getDouble("dtb");
                 String matkhau=rs.getString("matkhau"); 
                 String malop=rs.getString("malop");
-                sv=new sinhvienbean(masinhvien, hoten, diachi, dtb, matkhau, malop);
+                ds.add(new sinhvienbean(masinhvien, hoten, diachi, dtb, matkhau, malop));
             }
             rs.close();
             kn.cn.close();
-            return sv;
+            return ds;
             
         } catch(Exception e) {
             e.printStackTrace(); return null;
         }
     }
     
-    public sinhvienbean dtb (double dtb) {
+    public ArrayList<sinhvienbean> dtb () {
         try {
             // b1: Ket noi csdl
             KetNoi kn=new KetNoi();
             kn.KetNoi();
             // b2: Lay du lieu ve
-            String sql = "";
+            String sql = "select * from SinhVien order by dtb DESC";
        
             PreparedStatement cmd = kn.cn.prepareStatement(sql);
-            cmd.setDouble(1, dtb);
-            ResultSet rs = cmd.executeQuery();
-            sinhvienbean sv = null;
             
+            ResultSet rs = cmd.executeQuery();
+           ArrayList<sinhvienbean> ds=new ArrayList<sinhvienbean>();
             if(rs.next()) {
                 long masinhvien=rs.getLong("masinhvien");
                 String hoten=rs.getString("hoten");
@@ -96,11 +96,11 @@ public class ktdndao {
                 double dtb=rs.getDouble("dtb");
                 String matkhau=rs.getString("matkhau"); 
                 String malop=rs.getString("malop");
-                sv=new sinhvienbean(masinhvien, hoten, diachi, dtb, matkhau, malop);
+                ds.add(new sinhvienbean(masinhvien, hoten, diachi, dtb, matkhau, malop));
             }
             rs.close();
             kn.cn.close();
-            return sv;
+            return ds;
             
         } catch(Exception e) {
             e.printStackTrace(); return null;

@@ -14,4 +14,6 @@ import java.util.ArrayList;
  */
 public interface ITinhToan extends Remote{
     public sinhvienbean ktdn(long msv, String mk) throws Exception;
+    public ArrayList<sinhvienbean> timkiem (String keyword)   throws Exception;
+    public ArrayList<sinhvienbean> dtb () throws Exception;
 }

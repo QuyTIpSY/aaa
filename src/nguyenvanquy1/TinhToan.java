@@ -24,4 +24,10 @@ public class TinhToan extends UnicastRemoteObject implements ITinhToan{
     public sinhvienbean ktdn(long msv, String mk) throws Exception {
         return ktdn.ktdn(msv, mk);
     }
+    public ArrayList<sinhvienbean> timkiem (String keyword) throws Exception {
+        return ktdn.timkiem(keyword);
+    }
+    public ArrayList<sinhvienbean> dtb () throws Exception{
+        return ktdn.dtb();
+    }
 }
